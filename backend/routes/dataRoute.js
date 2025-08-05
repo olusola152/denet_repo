@@ -2,21 +2,45 @@ const express = require("express");
 const router = express.Router();
 const Data = require("../models/Data");
 
+// GET route for testing in browser
+router.get("/", (req, res) => {
+  res.status(200).json({ message: "API is working" });
+});
+
+// POST route to receive and save data
 router.post("/receive", async (req, res) => {
   try {
     const { phone, volume, band, validity } = req.body;
+
+    if (!phone || !volume || !band || !validity) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
     const newData = new Data({ phone, volume, band, validity });
     await newData.save();
-    res.status(200).json({ message: "Data received and saved." });
+
+    res.status(200).json({ message: "Data received and saved successfully." });
   } catch (err) {
-    res.status(500).json({ error: "Error saving data." });
+    console.error("Error saving data:", err);
+    res.status(500).json({ error: "Server error while saving data." });
   }
 });
 
+// POST route to simulate data sharing
 router.post("/share", async (req, res) => {
-  const { recipient, volume, validity } = req.body;
-  // Simulate sharing logic (you can integrate SMS/API later)
-  res.status(200).json({ message: `Data shared to ${recipient}` });
+  try {
+    const { recipient, volume, validity } = req.body;
+
+    if (!recipient || !volume || !validity) {
+      return res.status(400).json({ error: "All fields are required for sharing" });
+    }
+
+    // Simulate sharing logic
+    res.status(200).json({ message: `Data (${volume} valid for ${validity}) shared with ${recipient}.` });
+  } catch (err) {
+    console.error("Error sharing data:", err);
+    res.status(500).json({ error: "Server error during data sharing." });
+  }
 });
 
 module.exports = router;
