@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Data = require("../models/data"); // ✅ Correct relative path to modelbb
+const Data = require("../models/Data"); // ✅ Correct relative path to modelbb
 
 // ✅ GET route for testing (e.g., http://localhost:5000/api/)
 router.get("/", (req, res) => {
