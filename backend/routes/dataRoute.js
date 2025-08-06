@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Data = require("../models/Data");
+const Data = require("../models/data"); // ✅ Correct relative path to modelbb
 
-// GET route for testing in browser
+// ✅ GET route for testing (e.g., http://localhost:5000/api/)
 router.get("/", (req, res) => {
   res.status(200).json({ message: "API is working" });
 });
 
-// POST route to receive and save data
+// ✅ POST route to receive and save data
 router.post("/receive", async (req, res) => {
   try {
     const { phone, volume, band, validity } = req.body;
@@ -26,7 +26,7 @@ router.post("/receive", async (req, res) => {
   }
 });
 
-// POST route to simulate data sharing
+// ✅ POST route to simulate data sharing
 router.post("/share", async (req, res) => {
   try {
     const { recipient, volume, validity } = req.body;

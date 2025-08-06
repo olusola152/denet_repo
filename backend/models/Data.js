@@ -5,6 +5,6 @@ const dataSchema = new mongoose.Schema({
   volume: String,
   band: String,
   validity: String,
-}, { timestamps: true });
+});
 
 module.exports = mongoose.model("Data", dataSchema);
