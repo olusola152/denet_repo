@@ -9,10 +9,15 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-// Middlewares
+// ✅ Middleware (before routes)
 app.use(cors());
-app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // Handles form submissions
+app.use(express.json()); // Handles JSON data
+
+// ✅ Optional: Serve static HTML form (e.g., form.html in /public)
+app.use(express.static("public"));
+
+
 
 // MongoDB connection
 connectDB();
@@ -23,9 +28,12 @@ const dataRoutes = require("./routes/dataRoute"); // ✅ Correct path
 app.use("/api", dataRoutes); // ✅ Use route
 
 
+
+
+
 // Basic root test route
 app.get("/", (req, res) => {
-  res.send("Welcome to the API. Go to /api to access data routes.");
+  res.send("  Wow ! Welcome to De-net Optimum Communications API.");
 });
 
 // Start server
