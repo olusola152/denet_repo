@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
 router.post("/receive", async (req, res) => {
   try {
     const { phone, volume, band, validity } = req.body;
+    console.log("Received from client:", req.body); // 🐞 DEBUG LOG
 
     if (!phone || !volume || !band || !validity) {
       return res.status(400).json({ error: "All fields are required" });
@@ -21,7 +22,7 @@ router.post("/receive", async (req, res) => {
 
     res.status(200).json({ message: "Data received and saved successfully." });
   } catch (err) {
-    console.error("Error saving data:", err);
+    console.error("Error saving data:", err); // 🐞 DEBUG LOG
     res.status(500).json({ error: "Server error while saving data." });
   }
 });
